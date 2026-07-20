@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ext": "js,json",
+  "ignore": ["src/logs/*"],
+  "exec": "node src/server.js",
+  "legacyWatch": true,
+  "delay": 300
+}
