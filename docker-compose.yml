@@ -1,0 +1,44 @@
+services:
+
+  backend:
+
+    build: ./Enclave-portal-main/server
+
+    container_name: secure-contact-backend
+
+    ports:
+      - "8888:8888"
+
+    env_file:
+      - ./Enclave-portal-main/server/.env
+
+    volumes:
+      - ./Enclave-portal-main/server:/app
+      - /app/node_modules
+
+    restart: unless-stopped
+
+  frontend:
+
+    build: ./Enclave-portal-main/client
+
+    container_name: secure-contact-frontend
+
+    ports:
+      - "5173:5173"
+
+    depends_on:
+      - backend
+
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8888/api
+
+    volumes:
+      - ./Enclave-portal-main/client:/app
+      - /app/node_modules
+
+    stdin_open: true
+
+    tty: true
+
+    restart: unless-stopped
